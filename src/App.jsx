@@ -1,5 +1,11 @@
+import { Switch } from 'wouter'
+
 function App() {
-  return <div className="App"></div>
+  return (
+    <Switch>
+      <Route path="/" component={Home} />
+    </Switch>
+  )
 }
 
 export default App
