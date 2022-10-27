@@ -1,4 +1,7 @@
-import { Switch } from 'wouter'
+import { Route, Switch } from 'wouter'
+import Home from './pages/Home'
+
+import './App.css'
 
 function App() {
   return (
