@@ -1,3 +1,12 @@
+#hamlet,
+.shadowTop::before + #hamlet {
+  transition: transform 300ms ease;
+}
+
+#hamlet:hover {
+  transition-property: none;
+}
+
 .shadowTop::before {
   content: '';
   position: absolute;
@@ -9,11 +18,11 @@
   z-index: 1;
 }
 
-#hamlet,
-.shadowTop::before + #hamlet {
-  transition: transform 300ms ease;
-}
-
-#hamlet:hover {
-  transition-property: none;
+.shadowLoader {
+  background-image: radial-gradient(
+    circle at 50% 100%,
+    transparent,
+    transparent 30%,
+    #000
+  );
 }

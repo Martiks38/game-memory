@@ -1,8 +1,8 @@
 import Header from '../../components/Header'
 
-function Layout({ children, styles }) {
+function Layout({ children }) {
   return (
-    <div className={styles}>
+    <div className="max-h-screen overflow-y-hidden">
       <Header />
       <main className="relative min-h-screen">{children}</main>
     </div>
