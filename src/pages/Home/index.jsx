@@ -5,6 +5,13 @@ import Layout from '../Layout'
 
 function Home() {
   useEffect(() => {
+    // Prefers reduced motion
+    const query = 'prefers-reduced-motion: reduce'
+    const mediaWindow = window.matchMedia(query)
+
+    if (mediaWindow.matches) return
+
+    // Animation hamlet
     const containerHamlet = document.querySelector('#containerHamlet')
 
     const hamlet = document.querySelector('#hamlet')
@@ -33,7 +40,7 @@ function Home() {
   }, [])
 
   return (
-    <Layout styles="max-h-screen overflow-y-hidden">
+    <Layout>
       <div className="h-full w-full overflow-hidden" id="containerHamlet">
         <figure className="relative shadowTop">
           <img
@@ -44,7 +51,7 @@ function Home() {
           />
         </figure>
       </div>
-      <div className="absolute top-1/2 left-1/2 text-xl font-roboto font-medium -translate-x-1/2 -translate-y-1/2">
+      <div className="absolute top-1/2 left-1/2 text-xl font-MedievalSharp font-medium -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-wrap justify-center gap-8 mx-auto w-fit sm:flex-nowrap">
           <Link href="/game">
             <a className="rounded-md px-3 py-2 bg-black shadow-red text-[#ce0300] border-2 border-transparent hover:shadow-none hover:border-[#f2852c] hover:text-[#f2852c]">
