@@ -7,6 +7,7 @@ module.exports = {
         red: '0 0 6px 3px #cd0303',
       },
       fontFamily: {
+        MedievalSharp: ['MedievalSharp', 'sans-serif'],
         Roboto: ['Roboto', 'sans-serif'],
       },
       margin: {
