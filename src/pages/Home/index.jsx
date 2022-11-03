@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link } from 'wouter'
+import ButtonLink from '../../components/ButtonLink'
 
 import Layout from '../Layout'
 
@@ -51,18 +51,18 @@ function Home() {
           />
         </figure>
       </div>
-      <div className="absolute top-1/2 left-1/2 text-xl font-MedievalSharp font-medium -translate-x-1/2 -translate-y-1/2">
-        <div className="flex flex-wrap justify-center gap-8 mx-auto w-fit sm:flex-nowrap">
-          <Link href="/game">
-            <a className="rounded-md px-3 py-2 bg-black shadow-red text-[#ce0300] border-2 border-transparent hover:shadow-none hover:border-[#f2852c] hover:text-[#f2852c]">
-              Jugar
-            </a>
-          </Link>
-          <Link href="/game/timeTrial">
-            <a className="rounded-md px-3 py-2 bg-black shadow-red text-[#ce0300] border-2 border-transparent hover:shadow-none hover:border-[#f2852c] hover:text-[#f2852c]">
-              Jugar contrarreloj
-            </a>
-          </Link>
+      <div className="absolute top-1/2 left-1/2 text-xl font-medium -translate-x-1/2 -translate-y-1/2">
+        <div className="flex flex-wrap justify-center gap-8 mx-auto w-fit font-inherit sm:flex-nowrap">
+          <ButtonLink
+            href="/game"
+            msg="Jugar"
+            styles="rounded-md px-3 py-2 bg-black shadow-red text-[#ce0300] border-2 border-transparent hover:shadow-none hover:border-[#f2852c] hover:text-[#f2852c]"
+          />
+          <ButtonLink
+            href="/game/timeTrial"
+            msg="Jugar contrarreloj"
+            styles="rounded-md px-3 py-2 bg-black shadow-red text-[#ce0300] border-2 border-transparent hover:shadow-none hover:border-[#f2852c] hover:text-[#f2852c]"
+          />
         </div>
       </div>
     </Layout>
