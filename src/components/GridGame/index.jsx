@@ -1,6 +1,13 @@
-import React, { Suspense, useCallback, useEffect, useState } from 'react'
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 
 import Card from '../Card'
+import Modal from '../Modal'
 
 import generateGame from '../../utils/generateGame'
 import getNameImg from '../../utils/getNameImg'
@@ -11,6 +18,11 @@ function GridGame() {
   const [grid, setGrid] = useState(() => generateGame.generateMatrix())
   const [viewModalWin, setViewModalWin] = useState(false)
   const [nameFlippedCards, setNameFlippedCards] = useState(() => [])
+  const dataGame = useRef({ flips: 0, time: 0 })
+
+  const initGameTime = useCallback(() => {
+    if (dataGame.current.time === 0) dataGame.current.time = Date.now()
+  }, [])
 
   const tryGame = useCallback(() => {
     let newGameMatrix = generateGame.generateMatrix()
@@ -18,6 +30,8 @@ function GridGame() {
     setGrid(newGameMatrix)
     setViewModalWin((prevValue) => !prevValue)
     setNameFlippedCards(() => [])
+
+    dataGame.current = { flips: 0, time: 0 }
 
     let flips = document.querySelectorAll('.flip')
 
@@ -70,11 +84,15 @@ function GridGame() {
 
       if (won) {
         win = setTimeout(() => {
+          dataGame.current.time = Date.now() - dataGame.current.time
+
           setViewModalWin(true)
         }, 200)
       } else {
         setNameFlippedCards([])
       }
+
+      dataGame.current.flips += 1
 
       grid.style.pointerEvents = 'auto'
     }, 600)
@@ -88,21 +106,27 @@ function GridGame() {
   return (
     <>
       <div
-        className="grid grid-rows-6 grid-cols-6 flex-col gap-2 z-10 max-h-[80vmin] max-w-[80vmin] min-h-[70vmin] min-w-[70vmin]"
+        className="grid grid-rows-6 grid-cols-6 gap-2 z-10 max-h-[80vmin] max-w-[80vmin] min-h-[70vmin] min-w-[70vmin]"
         id="gameGrid"
+        onClick={initGameTime}
       >
         {grid.map((card) => (
           <Card key={card.id} src={card.url_img} onFlip={setNameFlippedCards} />
         ))}
       </div>
+
       <Suspense
         fallback={
-          <div>
-            <p>Hi</p>
-          </div>
+          <Modal isClose={false}>
+            <figure className="h-48 w-80">
+              <img src="/loader.gif" alt="" className="object-fit" />
+            </figure>
+          </Modal>
         }
       >
-        {viewModalWin ? <ModalVictory tryGame={tryGame} /> : null}
+        {viewModalWin ? (
+          <ModalVictory dataGame={dataGame.current} tryGame={tryGame} />
+        ) : null}
       </Suspense>
     </>
   )
