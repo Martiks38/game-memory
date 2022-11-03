@@ -1,10 +1,10 @@
-import { Link } from 'wouter'
+import ButtonLink from '../../components/ButtonLink'
 import Layout from '../Layout'
 
 function Error404() {
   return (
     <Layout>
-      <article className="absolute w-80 h-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-[#ce0300] border-solid border-2 rounded-md md:w-[540px]">
+      <article className="absolute w-80 h-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-redDD border-solid border-2 rounded-md md:w-[540px]">
         <div className="flex flex-col-reverse items-center justify-between gap-8 p-4 sm:flex-row">
           <figure className="basis-[200px]">
             <img
@@ -17,11 +17,11 @@ function Error404() {
             <h1 className="text-3xl">404</h1>
             <div>
               <p className="text-2xl">Página no encontrada</p>
-              <Link href="/">
-                <a className="block mt-3.5 text-2xl text-[#BFB37A] hover:underline">
-                  INICIO
-                </a>
-              </Link>
+              <ButtonLink
+                href="/"
+                msg="INICIO"
+                styles="block mt-3.5 text-2xl text-[#BFB37A] hover:underline"
+              />
             </div>
           </div>
         </div>
