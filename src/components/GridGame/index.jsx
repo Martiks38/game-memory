@@ -119,7 +119,7 @@ function GridGame() {
         fallback={
           <Modal isClose={false}>
             <figure className="h-48 w-80">
-              <img src="/loader.gif" alt="" className="object-fit" />
+              <img src="/loader.webp" alt="" className="object-fit" />
             </figure>
           </Modal>
         }

@@ -8,7 +8,7 @@ function Header() {
           <a className="block w-fit">
             <figure className="h-10">
               <img
-                src="/logo.png"
+                src="/logo.webp"
                 alt=""
                 className="h-full w-auto object-cover"
               />

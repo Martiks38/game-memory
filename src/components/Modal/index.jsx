@@ -15,7 +15,7 @@ function Modal({ children, styles, setClose, isClose = false }) {
             onClick={() => setClose((prevValue) => !prevValue)}
           >
             <figure>
-              <img src="/close.png" alt="" />
+              <img src="/close.webp" alt="" />
             </figure>
           </button>
         )}

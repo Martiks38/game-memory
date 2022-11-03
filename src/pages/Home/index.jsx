@@ -44,7 +44,7 @@ function Home() {
       <div className="h-full w-full overflow-hidden" id="containerHamlet">
         <figure className="relative shadowTop">
           <img
-            src="/hamlet.jpg"
+            src="/hamlet.webp"
             alt=""
             className="min-h-screen h-full w-full object-cover object-center"
             id="hamlet"

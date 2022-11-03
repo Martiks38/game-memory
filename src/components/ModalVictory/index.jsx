@@ -42,7 +42,7 @@ function ModalVictory({ dataGame, tryGame }) {
       </div>
       <div className="absolute top-0 left-0 w-full h-full -z-10">
         <img
-          src="/journal_popup.background.png"
+          src="/journal_popup.background.webp"
           alt=""
           className="w-full h-full object-contain"
         />
