@@ -2,9 +2,11 @@ import Header from '../../components/Header'
 
 function Layout({ children }) {
   return (
-    <div className="max-h-screen overflow-y-hidden">
+    <div className="max-h-screen">
       <Header />
-      <main className="relative min-h-screen">{children}</main>
+      <main className="relative max-h-[calc(100vh_-_56px)] h-screen">
+        {children}
+      </main>
     </div>
   )
 }
