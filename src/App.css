@@ -26,3 +26,66 @@
     #000
   );
 }
+
+.transitionGame {
+  transition: -webkit-filter 300ms ease;
+  transition: filter 300ms ease;
+  transition: filter 300ms ease, -webkit-filter 300ms ease;
+}
+
+.card-container {
+  perspective: 1000px;
+}
+
+.card {
+  transition: transform 300ms linear;
+  transform-style: preserve-3d;
+}
+
+.card.correct {
+  transition-property: none;
+}
+
+.card.flip {
+  transform: rotateY(-180deg);
+}
+
+.front-card {
+  /* Backface-visibility bug fix */
+  transform: rotateY(0deg);
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.back-card {
+  transform: rotateY(-180deg);
+}
+
+.shadowText {
+  text-shadow: -1px 0 #d65900, 0 1px #cf4a00, 1px 0 #b52d00, 0 -1px #d24a00;
+}
+
+.btn-journal::before {
+  --size: 40px;
+  content: '';
+  display: block;
+  height: var(--size);
+  width: var(--size);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transition: transform 300ms ease-in-out;
+}
+
+.btn-journal:hover::before {
+  transform: scale(1.4);
+}
+
+.btn-journal_home::before {
+  background-image: url('/invitation.png');
+}
+
+.btn-journal_tryGame::before {
+  background-image: url('/try_game.png');
+}
