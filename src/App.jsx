@@ -14,6 +14,9 @@ function App() {
   return (
     <Suspense fallback={<PageLoader />}>
       <Switch>
+        <Route path="/game/time_trial">
+          <Game trial={true} />
+        </Route>
         <Route path="/game" component={Game} />
         <Route path="/" component={Home} />
         <Route component={Error404} />
