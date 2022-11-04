@@ -4,13 +4,29 @@ import ButtonLink from '../ButtonLink'
 
 import millisecondsToMinutesSeconds from '../../utils/millisecondsToMinutesSeconds'
 
-function ModalResult({ dataGame, tryGame, status }) {
-  let [minutes, seconds] = millisecondsToMinutesSeconds(dataGame.time)
+import { total_time } from '../../consts/game'
 
-  let title =
-    status === 'victory'
-      ? 'Una victoria mínima, pero victoria al fin y al cabo.'
-      : 'Oídos que resuenan,visión borrosa... el fin está cerca.'
+/**
+ * Shows the result of the game.
+ *
+ * @Component
+ * @param {Object} props - Statistics and game function.
+ * @param {Object} dataGame - Game statistics.
+ * @param {number} dataGame.time - Duration of the game.
+ * @param {number} dataGame.flips - Number of flipped cards.
+ * @param {string} [status= ("victory" | "defeat")]
+ * @callback tryGame - Restart the game.
+ */
+
+function ModalResult({ dataGame, tryGame, status }) {
+  let won = status === 'victory'
+
+  let time = won ? dataGame.time : total_time
+
+  let [minutes, seconds] = millisecondsToMinutesSeconds(time)
+  let title = won
+    ? 'Una victoria mínima, pero victoria al fin y al cabo.'
+    : 'Oídos que resuenan,visión borrosa... el fin está cerca.'
 
   return (
     <Modal styles="text-2xl text-center text-black rounded-lg md:w-[620px] md:h-[425px]">
