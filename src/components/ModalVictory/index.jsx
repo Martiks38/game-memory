@@ -1,23 +1,27 @@
-import Button from '../Button'
 import Modal from '../Modal'
+import Button from '../Button'
 import ButtonLink from '../ButtonLink'
 
-function ModalVictory({ dataGame, tryGame }) {
-  let minute = ('00' + Math.floor(dataGame.time / 60000)).slice(-2)
-  let seconds = ('00' + Math.floor((dataGame.time % 60000) / 1000)).slice(-2)
+import millisecondsToMinutesSeconds from '../../utils/millisecondsToMinutesSeconds'
+
+function ModalResult({ dataGame, tryGame, status }) {
+  let [minutes, seconds] = millisecondsToMinutesSeconds(dataGame.time)
+
+  let title =
+    status === 'victory'
+      ? 'Una victoria mínima, pero victoria al fin y al cabo.'
+      : 'Oídos que resuenan,visión borrosa... el fin está cerca.'
 
   return (
     <Modal styles="text-2xl text-center text-black rounded-lg md:w-[620px] md:h-[425px]">
       <div className="absolute top-[47px] left-0 w-full h-full">
-        <p className="text-[1.4rem] shadowText">
-          Una victoria mínima, pero victoria al fin y al cabo.
-        </p>
+        <h1 className="text-[1.4rem] shadowText">{title}</h1>
         <div className="mt-10">
           <ul>
             <li>
               Tiempo:{' '}
               <span className="text-[#ca0b0b]">
-                {minute}:{seconds}
+                {minutes}:{seconds}
               </span>
             </li>
             <li className="mt-4">
@@ -51,4 +55,4 @@ function ModalVictory({ dataGame, tryGame }) {
   )
 }
 
-export default ModalVictory
+export default ModalResult

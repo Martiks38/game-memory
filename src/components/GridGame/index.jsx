@@ -13,8 +13,9 @@ import Modal from '../Modal'
 import generateGame from '../../utils/generateGame'
 import getNameImg from '../../utils/getNameImg'
 import { $, $$ } from '../../utils/selectors'
+import TimeTrial from '../TimeTrial'
 
-const ModalVictory = React.lazy(() => import('../ModalVictory'))
+const ModalResult = React.lazy(() => import('../ModalResult'))
 
 function GridGame() {
   const [stateGame, setStateGame] = useState({
@@ -93,7 +94,7 @@ function GridGame() {
           dataGame.current.time = Date.now() - dataGame.current.time
 
           setStateGame((stateGame) => {
-            return { ...stateGame, status: 'finished' }
+            return { ...stateGame, status: 'victory' }
           })
         }, 200)
       } else {
@@ -115,6 +116,11 @@ function GridGame() {
 
   return (
     <>
+      <TimeTrial
+        initTime={dataGame.current.time}
+        status={stateGame.status}
+        onFinish={setStateGame}
+      />
       <div
         className="grid grid-rows-6 grid-cols-6 gap-2 z-10 max-h-[80vmin] max-w-[80vmin] min-h-[70vmin] min-w-[70vmin]"
         id="gameGrid"
@@ -134,8 +140,12 @@ function GridGame() {
           </Modal>
         }
       >
-        {stateGame.status === 'finished' ? (
-          <ModalVictory dataGame={dataGame.current} tryGame={tryGame} />
+        {stateGame.status === 'victory' ? (
+          <ModalResult
+            dataGame={dataGame.current}
+            tryGame={tryGame}
+            status={stateGame.status}
+          />
         ) : null}
       </Suspense>
     </>
