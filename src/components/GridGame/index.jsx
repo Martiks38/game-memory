@@ -2,6 +2,7 @@ import React, {
   Suspense,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -11,61 +12,65 @@ import Modal from '../Modal'
 
 import generateGame from '../../utils/generateGame'
 import getNameImg from '../../utils/getNameImg'
+import { $, $$ } from '../../utils/selectors'
 
 const ModalVictory = React.lazy(() => import('../ModalVictory'))
 
 function GridGame() {
-  const [grid, setGrid] = useState(() => generateGame.generateMatrix())
-  const [viewModalWin, setViewModalWin] = useState(false)
-  const [nameFlippedCards, setNameFlippedCards] = useState(() => [])
+  const [stateGame, setStateGame] = useState({
+    status: 'playing',
+    cardNames: [],
+  })
   const dataGame = useRef({ flips: 0, time: 0 })
+
+  const grid = useMemo(() => {
+    if (stateGame.status === 'playing') return generateGame.generateMatrix()
+
+    return []
+  }, [stateGame.status])
 
   const initGameTime = useCallback(() => {
     if (dataGame.current.time === 0) dataGame.current.time = Date.now()
   }, [])
 
   const tryGame = useCallback(() => {
-    let newGameMatrix = generateGame.generateMatrix()
+    let $flips = $$('.flip')
 
-    setGrid(newGameMatrix)
-    setViewModalWin((prevValue) => !prevValue)
-    setNameFlippedCards(() => [])
-
-    dataGame.current = { flips: 0, time: 0 }
-
-    let flips = document.querySelectorAll('.flip')
-
-    flips.forEach((card) => {
+    $flips.forEach((card) => {
       card.classList.toggle('flip')
       card.dataset.flip = 'true'
     })
 
     setTimeout(() => {
-      let flips = document.querySelectorAll('.correct')
+      let $correct = $$('.correct')
 
-      flips.forEach((card) => {
+      $correct.forEach((card) => {
         card.classList.toggle('correct')
       })
     }, 100)
+
+    dataGame.current = { flips: 0, time: 0 }
+    setStateGame({ status: 'playing', cardName: [] })
   }, [])
 
   useEffect(() => {
-    let view = null
-    let win = null
+    const { cardNames } = stateGame
+    let timeout_game = null
+    let timeout_win = null
 
-    if (nameFlippedCards.length !== 2) return
+    if (cardNames.length !== 2) return
 
-    const grid = document.querySelector('#gameGrid')
-    grid.style.pointerEvents = 'none'
+    let $grid = $('#gameGrid')
+    $grid.style.pointerEvents = 'none'
 
-    view = setTimeout(() => {
-      let flipped_cards = Array.from(document.querySelectorAll('.flip'))
-      let same_names = new Set(nameFlippedCards).size === 1
+    timeout_game = setTimeout(() => {
+      let flipped_cards = Array.from($$('.flip'))
+      let same_names = new Set(cardNames).size === 1
 
       flipped_cards = flipped_cards.filter((card) => {
         let name = getNameImg(card)
 
-        return nameFlippedCards.includes(name)
+        return cardNames.includes(name)
       })
 
       flipped_cards.forEach((card) => {
@@ -77,31 +82,36 @@ function GridGame() {
         }
       })
 
-      let total_flip = document.querySelectorAll('.flip').length
-      let total_cards = document.querySelectorAll('.card').length
+      // You win if the total number of cards is equal to the number of cards turned over.
+      let $total_flip = $$('.flip').length
+      let $total_cards = $$('.card').length
 
-      let won = total_cards - total_flip === 0
+      let won = $total_cards - $total_flip === 0
 
       if (won) {
-        win = setTimeout(() => {
+        timeout_win = setTimeout(() => {
           dataGame.current.time = Date.now() - dataGame.current.time
 
-          setViewModalWin(true)
+          setStateGame((stateGame) => {
+            return { ...stateGame, status: 'finished' }
+          })
         }, 200)
       } else {
-        setNameFlippedCards([])
+        setStateGame((stateGame) => {
+          return { ...stateGame, cardNames: [] }
+        })
       }
 
       dataGame.current.flips += 1
 
-      grid.style.pointerEvents = 'auto'
+      $grid.style.pointerEvents = 'auto'
     }, 600)
 
     return () => {
-      if (view) clearTimeout(view)
-      if (win) clearTimeout(win)
+      if (timeout_game) clearTimeout(timeout_game)
+      if (timeout_win) clearTimeout(timeout_win)
     }
-  }, [nameFlippedCards])
+  }, [stateGame.cardNames])
 
   return (
     <>
@@ -111,7 +121,7 @@ function GridGame() {
         onClick={initGameTime}
       >
         {grid.map((card) => (
-          <Card key={card.id} src={card.url_img} onFlip={setNameFlippedCards} />
+          <Card key={card.id} src={card.url_img} onFlip={setStateGame} />
         ))}
       </div>
 
@@ -124,7 +134,7 @@ function GridGame() {
           </Modal>
         }
       >
-        {viewModalWin ? (
+        {stateGame.status === 'finished' ? (
           <ModalVictory dataGame={dataGame.current} tryGame={tryGame} />
         ) : null}
       </Suspense>
