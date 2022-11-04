@@ -1,10 +1,12 @@
 import Header from '../../components/Header'
 
-function Layout({ children, styles }) {
+function Layout({ children }) {
   return (
-    <div className={styles}>
+    <div className="max-h-screen">
       <Header />
-      <main className="relative min-h-screen">{children}</main>
+      <main className="relative max-h-[calc(100vh_-_56px)] h-screen">
+        {children}
+      </main>
     </div>
   )
 }

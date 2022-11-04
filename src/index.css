@@ -24,4 +24,10 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'DwarvenAxe', sans-serif;
+}
+
+@font-face {
+  font-family: 'DwarvenAxe';
+  src: url('./assets/fonts/DwarvenAxe_BB_W00_Regular.ttf');
 }
