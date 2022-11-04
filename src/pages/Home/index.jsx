@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import ButtonLink from '../../components/ButtonLink'
 
 import Layout from '../Layout'
@@ -59,7 +60,7 @@ function Home() {
             styles="rounded-md px-3 py-2 bg-black shadow-red text-[#ce0300] border-2 border-transparent hover:shadow-none hover:border-[#f2852c] hover:text-[#f2852c]"
           />
           <ButtonLink
-            href="/game/timeTrial"
+            href="/game/time_trial"
             msg="Jugar contrarreloj"
             styles="rounded-md px-3 py-2 bg-black shadow-red text-[#ce0300] border-2 border-transparent hover:shadow-none hover:border-[#f2852c] hover:text-[#f2852c]"
           />
