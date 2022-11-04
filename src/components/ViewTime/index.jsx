@@ -4,7 +4,7 @@ import millisecondsToMinutesSeconds from '../../utils/millisecondsToMinutesSecon
 
 import { total_time } from '../../consts/game'
 
-function TimeTrial({ initTime, status, onFinish }) {
+function ViewTime({ initTime, status, onFinish }) {
   const [time, setTime] = useState(total_time)
 
   useEffect(() => {
@@ -43,4 +43,4 @@ function TimeTrial({ initTime, status, onFinish }) {
   )
 }
 
-export default TimeTrial
+export default ViewTime
