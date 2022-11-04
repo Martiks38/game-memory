@@ -83,9 +83,9 @@
 }
 
 .btn-journal_home::before {
-  background-image: url('/invitation.png');
+  background-image: url('/invitation.webp');
 }
 
 .btn-journal_tryGame::before {
-  background-image: url('/try_game.png');
+  background-image: url('/try_game.webp');
 }

@@ -9,14 +9,16 @@ import React, {
 
 import Card from '../Card'
 import Modal from '../Modal'
+import ViewTime from '../ViewTime'
 
 import generateGame from '../../utils/generateGame'
 import getNameImg from '../../utils/getNameImg'
 import { $, $$ } from '../../utils/selectors'
+import colorToGray from '../../utils/colorToGray'
 
-const ModalVictory = React.lazy(() => import('../ModalVictory'))
+const ModalResult = React.lazy(() => import('../ModalResult'))
 
-function GridGame() {
+function GridGame({ trial }) {
   const [stateGame, setStateGame] = useState({
     status: 'playing',
     cardNames: [],
@@ -50,14 +52,35 @@ function GridGame() {
     }, 100)
 
     dataGame.current = { flips: 0, time: 0 }
-    setStateGame({ status: 'playing', cardName: [] })
+    setStateGame({ status: 'playing', cardNames: [] })
   }, [])
+
+  useEffect(() => {
+    let interval_ruins = null
+    let $img = $('#background-image-game')
+
+    if (trial && stateGame.status === 'playing') {
+      $img.style.filter = 'grayscale(0)'
+      interval_ruins = colorToGray('#background-image-game')
+    }
+
+    if (stateGame.status !== 'playing') {
+      clearInterval(interval_ruins)
+    }
+
+    return () => {
+      if ($img) $img.style.filter = 'grayscale(0)'
+
+      clearInterval(interval_ruins)
+    }
+  }, [stateGame.status])
 
   useEffect(() => {
     const { cardNames } = stateGame
     let timeout_game = null
     let timeout_win = null
 
+    if (cardNames.length !== 0) dataGame.current.flips += 1
     if (cardNames.length !== 2) return
 
     let $grid = $('#gameGrid')
@@ -93,7 +116,7 @@ function GridGame() {
           dataGame.current.time = Date.now() - dataGame.current.time
 
           setStateGame((stateGame) => {
-            return { ...stateGame, status: 'finished' }
+            return { ...stateGame, status: 'victory' }
           })
         }, 200)
       } else {
@@ -101,8 +124,6 @@ function GridGame() {
           return { ...stateGame, cardNames: [] }
         })
       }
-
-      dataGame.current.flips += 1
 
       $grid.style.pointerEvents = 'auto'
     }, 600)
@@ -115,6 +136,13 @@ function GridGame() {
 
   return (
     <>
+      {trial && stateGame.status === 'playing' ? (
+        <ViewTime
+          initTime={dataGame.current.time}
+          status={stateGame.status}
+          onFinish={setStateGame}
+        />
+      ) : null}
       <div
         className="grid grid-rows-6 grid-cols-6 gap-2 z-10 max-h-[80vmin] max-w-[80vmin] min-h-[70vmin] min-w-[70vmin]"
         id="gameGrid"
@@ -134,8 +162,12 @@ function GridGame() {
           </Modal>
         }
       >
-        {stateGame.status === 'finished' ? (
-          <ModalVictory dataGame={dataGame.current} tryGame={tryGame} />
+        {stateGame.status !== 'playing' ? (
+          <ModalResult
+            dataGame={dataGame.current}
+            tryGame={tryGame}
+            status={stateGame.status}
+          />
         ) : null}
       </Suspense>
     </>
