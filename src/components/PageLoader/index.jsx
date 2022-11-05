@@ -1,3 +1,4 @@
+/** Fallback when changing route. */
 function PageLoader() {
   return (
     <div className="flex items-end justify-center w-full h-screen bg-black">

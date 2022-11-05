@@ -9,25 +9,32 @@ import React, {
 
 import Card from '../Card'
 import Modal from '../Modal'
+import ViewTime from '../ViewTime'
 
 import generateGame from '../../utils/generateGame'
 import getNameImg from '../../utils/getNameImg'
 import { $, $$ } from '../../utils/selectors'
+import colorToGray from '../../utils/colorToGray'
 
-const ModalVictory = React.lazy(() => import('../ModalVictory'))
+const ModalResult = React.lazy(() => import('../ModalResult'))
 
-function GridGame() {
-  const [stateGame, setStateGame] = useState({
+/**
+ * Card matrix and game state container.
+ *
+ * @param {boolean} trial - Indicates if the game is against the clock.
+ */
+function GridGame({ trial }) {
+  const [gameState, setGameState] = useState({
     status: 'playing',
     cardNames: [],
   })
   const dataGame = useRef({ flips: 0, time: 0 })
 
   const grid = useMemo(() => {
-    if (stateGame.status === 'playing') return generateGame.generateMatrix()
+    if (gameState.status === 'playing') return generateGame.generateMatrix()
 
     return []
-  }, [stateGame.status])
+  }, [gameState.status])
 
   const initGameTime = useCallback(() => {
     if (dataGame.current.time === 0) dataGame.current.time = Date.now()
@@ -50,14 +57,35 @@ function GridGame() {
     }, 100)
 
     dataGame.current = { flips: 0, time: 0 }
-    setStateGame({ status: 'playing', cardName: [] })
+    setGameState({ status: 'playing', cardNames: [] })
   }, [])
 
   useEffect(() => {
-    const { cardNames } = stateGame
+    let interval_ruins = null
+    let $img = $('#background-image-game')
+
+    if (trial && gameState.status === 'playing') {
+      $img.style.filter = 'grayscale(0)'
+      interval_ruins = colorToGray('#background-image-game')
+    }
+
+    if (gameState.status !== 'playing') {
+      clearInterval(interval_ruins)
+    }
+
+    return () => {
+      if ($img) $img.style.filter = 'grayscale(0)'
+
+      clearInterval(interval_ruins)
+    }
+  }, [gameState.status])
+
+  useEffect(() => {
+    const { cardNames } = gameState
     let timeout_game = null
     let timeout_win = null
 
+    if (cardNames.length !== 0) dataGame.current.flips += 1
     if (cardNames.length !== 2) return
 
     let $grid = $('#gameGrid')
@@ -92,17 +120,15 @@ function GridGame() {
         timeout_win = setTimeout(() => {
           dataGame.current.time = Date.now() - dataGame.current.time
 
-          setStateGame((stateGame) => {
-            return { ...stateGame, status: 'finished' }
+          setGameState((gameState) => {
+            return { ...gameState, status: 'victory' }
           })
         }, 200)
       } else {
-        setStateGame((stateGame) => {
-          return { ...stateGame, cardNames: [] }
+        setGameState((gameState) => {
+          return { ...gameState, cardNames: [] }
         })
       }
-
-      dataGame.current.flips += 1
 
       $grid.style.pointerEvents = 'auto'
     }, 600)
@@ -111,17 +137,24 @@ function GridGame() {
       if (timeout_game) clearTimeout(timeout_game)
       if (timeout_win) clearTimeout(timeout_win)
     }
-  }, [stateGame.cardNames])
+  }, [gameState.cardNames])
 
   return (
     <>
+      {trial && gameState.status === 'playing' ? (
+        <ViewTime
+          initTime={dataGame.current.time}
+          status={gameState.status}
+          onFinish={setGameState}
+        />
+      ) : null}
       <div
-        className="grid grid-rows-6 grid-cols-6 gap-2 z-10 max-h-[80vmin] max-w-[80vmin] min-h-[70vmin] min-w-[70vmin]"
+        className="grid grid-rows-6 grid-cols-6 gap-2 max-h-[80vmin] max-w-[80vmin] z-10 min-h-[70vmin] min-w-[70vmin]"
         id="gameGrid"
         onClick={initGameTime}
       >
         {grid.map((card) => (
-          <Card key={card.id} src={card.url_img} onFlip={setStateGame} />
+          <Card key={card.id} src={card.url_img} onFlip={setGameState} />
         ))}
       </div>
 
@@ -134,8 +167,12 @@ function GridGame() {
           </Modal>
         }
       >
-        {stateGame.status === 'finished' ? (
-          <ModalVictory dataGame={dataGame.current} tryGame={tryGame} />
+        {gameState.status !== 'playing' ? (
+          <ModalResult
+            dataGame={dataGame.current}
+            tryGame={tryGame}
+            status={gameState.status}
+          />
         ) : null}
       </Suspense>
     </>

@@ -17,6 +17,7 @@ module.exports = {
         75: '1200px',
       },
       textColor: {
+        redDD: '#cd0300',
         creamDD: '#c6b173',
       },
       borderColor: {

@@ -1,25 +1,23 @@
-import { useEffect } from 'react'
 import GridGame from '../../components/GridGame'
-import colorToGray from '../../utils/colorToGray'
 import Layout from '../Layout'
 
-function Game() {
-  useEffect(() => {
-    const id_interval_ruins = colorToGray('#background-image-game')
-
-    return () => clearInterval(id_interval_ruins)
-  }, [])
-
+/**
+ * Container component of the game.
+ *
+ * @param {Object} props - By default, there is no time limit to find the pairs. Default trial = false.
+ * @property {boolean} props.trial - Indicates if the game is against the clock.
+ */
+function Game({ trial = false }) {
   return (
     <Layout>
       <div className="grid place-content-center h-full w-full">
         <img
           src="/ruins.webp"
           alt=""
-          className="absolute top-1/2 -translate-y-1/2 w-full object-cover transitionGame -z-10"
+          className="absolute top-1/2 -translate-y-1/2 w-full h-full object-cover transitionGame -z-10"
           id="background-image-game"
         />
-        <GridGame />
+        <GridGame trial={trial} />
       </div>
     </Layout>
   )

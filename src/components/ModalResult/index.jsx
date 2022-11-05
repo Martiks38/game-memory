@@ -1,23 +1,42 @@
-import Button from '../Button'
 import Modal from '../Modal'
+import Button from '../Button'
 import ButtonLink from '../ButtonLink'
 
-function ModalVictory({ dataGame, tryGame }) {
-  let minute = ('00' + Math.floor(dataGame.time / 60000)).slice(-2)
-  let seconds = ('00' + Math.floor((dataGame.time % 60000) / 1000)).slice(-2)
+import millisecondsToMinutesSeconds from '../../utils/millisecondsToMinutesSeconds'
+
+import { total_time } from '../../consts/game'
+
+/**
+ * Shows the result of the game.
+ *
+ * @param {Object} props - Statistics and game function.
+ * @property {Object} props.dataGame - Game statistics.
+ * @property {number} props.dataGame.time - Duration of the game.
+ * @property {number} props.dataGame.flips - Number of flipped cards.
+ * @property {"victory" | "defeat"} props.status - Indicates if you won the game.
+ * @property {() => void} props.tryGame - Restart the game.
+ */
+
+function ModalResult({ dataGame, tryGame, status }) {
+  let won = status === 'victory'
+
+  let time = won ? dataGame.time : total_time
+
+  let [minutes, seconds] = millisecondsToMinutesSeconds(time)
+  let title = won
+    ? 'Una victoria mínima, pero victoria al fin y al cabo.'
+    : 'Oídos que resuenan,visión borrosa... el fin está cerca.'
 
   return (
     <Modal styles="text-2xl text-center text-black rounded-lg md:w-[620px] md:h-[425px]">
       <div className="absolute top-[47px] left-0 w-full h-full">
-        <p className="text-[1.4rem] shadowText">
-          Una victoria mínima, pero victoria al fin y al cabo.
-        </p>
+        <h1 className="text-[1.4rem] shadowText">{title}</h1>
         <div className="mt-10">
           <ul>
             <li>
               Tiempo:{' '}
               <span className="text-[#ca0b0b]">
-                {minute}:{seconds}
+                {minutes}:{seconds}
               </span>
             </li>
             <li className="mt-4">
@@ -31,7 +50,6 @@ function ModalVictory({ dataGame, tryGame }) {
             href="/"
             msg="Inicio"
             styles="flex gap-[0.4em] items-center font-inherit btn-journal btn-journal_home ml-12"
-            setClose="setViewModalWin"
           />
           <Button
             msg="Volver a jugar"
@@ -51,4 +69,4 @@ function ModalVictory({ dataGame, tryGame }) {
   )
 }
 
-export default ModalVictory
+export default ModalResult

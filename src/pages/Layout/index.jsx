@@ -1,5 +1,11 @@
 import Header from '../../components/Header'
 
+/**
+ * Layout of the pages.
+ *
+ * @param {Object} props
+ * @property {JSX.Element | JSX.Element[]} props.children - Content - child elements.
+ */
 function Layout({ children }) {
   return (
     <div className="max-h-screen">

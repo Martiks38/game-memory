@@ -51,7 +51,7 @@
 }
 
 .front-card {
-  /* Backface-visibility bug fix */
+  /* Bug fix for backface visibility in Firefox. */
   transform: rotateY(0deg);
 
   -webkit-backface-visibility: hidden;
@@ -83,9 +83,20 @@
 }
 
 .btn-journal_home::before {
-  background-image: url('/invitation.png');
+  background-image: url('/invitation.webp');
 }
 
 .btn-journal_tryGame::before {
-  background-image: url('/try_game.png');
+  background-image: url('/try_game.webp');
+}
+
+@media (max-height: 550px) {
+  #left-time-title {
+    position: absolute;
+    top: 50%;
+    right: 1.5rem;
+    transform: translateY(-50%);
+    width: 200px;
+    word-break: normal;
+  }
 }
