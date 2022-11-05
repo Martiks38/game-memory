@@ -4,6 +4,7 @@ import Layout from '../Layout'
 /**
  * Container component of the game.
  *
+ * @Component
  * @param {Object} props - By default, there is no time limit to find the pairs. Default trial = false.
  * @property {boolean} props.trial - Indicates if the game is against the clock.
  */

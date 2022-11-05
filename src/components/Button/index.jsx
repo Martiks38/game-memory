@@ -1,6 +1,7 @@
 /**
  * Presents a button, taking the passed message, styles, and action.
  *
+ * @Component
  * @param {Object} props - Text, styles and action.
  * @property {string} props.msg - Text, string.
  * @property {string} props.styles - List of classes in a string.

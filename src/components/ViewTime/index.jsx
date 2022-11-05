@@ -17,6 +17,7 @@ import { total_time } from '../../consts/game'
 /**
  * Shows and manages the remaining time of the game.
  *
+ * @Component
  * @param {Object} props
  * @property {number} props.initTime - Start time in milliseconds.
  * @property {"victory" | "defeat"} props.status - Indicate if you won or lost.

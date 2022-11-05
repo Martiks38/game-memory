@@ -90,13 +90,99 @@
   background-image: url('/try_game.webp');
 }
 
-@media (max-height: 550px) {
+.result__title {
+  top: 3rem;
+  width: 100%;
+  font-size: 1.4rem;
+}
+
+.result__info {
+  position: absolute;
+  top: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+.result__buttons {
+  bottom: 4rem;
+}
+
+.result__buttons a:first-child {
+  margin-left: 2.5em;
+}
+
+@media (min-height: 551px) and (min-width: 651px) {
+  #modal-img {
+    padding: 0;
+  }
+}
+
+@media (max-width: 651px) {
+  .result__title {
+    top: 3.8rem;
+  }
+}
+
+@media (max-width: 586px) {
+  .result__title {
+    top: 5.35rem;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 541px) {
+  .result__title {
+    top: 4.75rem;
+  }
+
+  .result__buttons {
+    bottom: 5.1rem;
+  }
+}
+
+@media (max-width: 451px) {
+  .result__title {
+    top: 6.2rem;
+  }
+
+  .result__buttons {
+    bottom: 6.5rem;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+
+  .result__buttons a:first-child {
+    margin-left: 1.5em;
+  }
+}
+
+@media (max-height: 551px) {
   #left-time-title {
     position: absolute;
     top: 50%;
-    right: 1.5rem;
+    right: 1rem;
     transform: translateY(-50%);
-    width: 200px;
+    width: 150px;
+    font-size: 1.5rem;
+    line-height: 2rem;
     word-break: normal;
+  }
+
+  .result__buttons {
+    bottom: 3rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .result__buttons a:first-child {
+    margin-left: 1.5em;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-height: 551px) {
+  .result__title {
+    font-size: 1rem;
   }
 }

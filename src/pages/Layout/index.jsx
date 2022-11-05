@@ -3,6 +3,7 @@ import Header from '../../components/Header'
 /**
  * Layout of the pages.
  *
+ * @Component
  * @param {Object} props
  * @property {JSX.Element | JSX.Element[]} props.children - Content - child elements.
  */
