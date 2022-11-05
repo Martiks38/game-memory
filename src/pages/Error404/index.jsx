@@ -1,7 +1,10 @@
 import ButtonLink from '../../components/ButtonLink'
 import Layout from '../Layout'
 
-/** 404 error page. */
+/** 404 error page.
+ *
+ * @Component
+ */
 function Error404() {
   return (
     <Layout>

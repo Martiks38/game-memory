@@ -21,6 +21,7 @@ const ModalResult = React.lazy(() => import('../ModalResult'))
 /**
  * Card matrix and game state container.
  *
+ * @Component
  * @param {boolean} trial - Indicates if the game is against the clock.
  */
 function GridGame({ trial }) {

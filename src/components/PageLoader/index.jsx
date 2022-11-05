@@ -1,4 +1,7 @@
-/** Fallback when changing route. */
+/** Fallback when changing route.
+ *
+ * @Component
+ */
 function PageLoader() {
   return (
     <div className="flex items-end justify-center w-full h-screen bg-black">

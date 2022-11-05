@@ -13,6 +13,8 @@ import flipCard from '../../utils/flipCard'
  */
 
 /**
+ *
+ * @Component
  * @param {Object} props
  * @property {string} props.src - Image path.
  * @property {SetGameState} props.onFlip - Game manager for when time is up.
