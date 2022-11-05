@@ -1,3 +1,9 @@
+/**
+ *
+ * @param {string} selectorImage - DOM element selector.
+ * @returns {number} Interval ID.
+ */
+
 const colorToGray = (selectorImage) => {
   const $image = document.querySelector(selectorImage)
   let scale = 0

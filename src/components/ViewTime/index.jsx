@@ -4,6 +4,25 @@ import millisecondsToMinutesSeconds from '../../utils/millisecondsToMinutesSecon
 
 import { total_time } from '../../consts/game'
 
+/**
+ * @typedef {Object} GameState
+ * @property {"victory" | "defeat"} status
+ * @property {string[]} cardNames
+ */
+
+/**
+ * @typedef {React.Dispatch<React.SetStateAction<GameState>>} SetGameState
+ */
+
+/**
+ * Shows and manages the remaining time of the game.
+ *
+ * @param {Object} props
+ * @property {number} props.initTime - Start time in milliseconds.
+ * @property {"victory" | "defeat"} props.status - Indicate if you won or lost.
+ * @param {SetGameState} props.onFinish - Game manager for when time is up.
+ */
+
 function ViewTime({ initTime, status, onFinish }) {
   const [time, setTime] = useState(total_time)
 

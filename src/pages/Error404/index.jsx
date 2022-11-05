@@ -1,6 +1,7 @@
 import ButtonLink from '../../components/ButtonLink'
 import Layout from '../Layout'
 
+/** 404 error page. */
 function Error404() {
   return (
     <Layout>
@@ -13,7 +14,7 @@ function Error404() {
               className="w-full h-full object-cover"
             />
           </figure>
-          <div className="flex flex-col grow text-center text-[#F00400] font-DwarvenAxe">
+          <div className="flex flex-col grow text-center text-redDD font-DwarvenAxe">
             <h1 className="text-3xl">404</h1>
             <div>
               <p className="text-2xl">Página no encontrada</p>

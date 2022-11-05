@@ -1,6 +1,12 @@
 import GridGame from '../../components/GridGame'
 import Layout from '../Layout'
 
+/**
+ * Container component of the game.
+ *
+ * @param {Object} props -Por defecto, no hay límite de tiempo para encontrar las parejas. trial = false
+ * @property {boolean} props.trial - Indicates if the game is against the clock.
+ */
 function Game({ trial = false }) {
   return (
     <Layout>

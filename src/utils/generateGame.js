@@ -1,7 +1,17 @@
+/**
+ * Order of the game matrix.
+ * @constant
+ * @type {number}
+ */
 const n = 6
 
-class Matrix {
+/**
+ * Represents a game.
+ *
+ */
+class Game {
   // Image url list.
+  /** @private */
   #unique_cards = [
     {
       url_img: '/Cards/Bone_Bearer.webp',
@@ -78,6 +88,7 @@ class Matrix {
   ]
 
   // List of ids for key.
+  /** @private */
   #ids = [
     '0782bf46-9af3-40e6-a957-494ce7579bae',
     '7541012d-175a-4a13-96d6-39bd46209867',
@@ -117,8 +128,20 @@ class Matrix {
     '0ef55ec0-666a-43d4-9799-eaed57275404',
   ]
 
+  /** @private */
   #matrix = new Array(n ** 2).fill(null)
 
+  /**
+   * @typedef {Object} Card
+   * @property {string} url_img - Url of the card image.
+   * @property {string} id - ID of the card.
+   */
+
+  /**
+   * Generates an unordered array of cards.
+   *
+   * @returns {Array<Card>}
+   */
   generateMatrix() {
     let ids_clone = this.#ids.slice()
 
@@ -157,6 +180,6 @@ class Matrix {
   }
 }
 
-const newGame = new Matrix()
+const newGame = new Game()
 
 export default newGame

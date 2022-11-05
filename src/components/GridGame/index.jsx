@@ -18,18 +18,23 @@ import colorToGray from '../../utils/colorToGray'
 
 const ModalResult = React.lazy(() => import('../ModalResult'))
 
+/**
+ * Card matrix and game state container.
+ *
+ * @param {boolean} trial - Indicates if the game is against the clock.
+ */
 function GridGame({ trial }) {
-  const [stateGame, setStateGame] = useState({
+  const [gameState, setGameState] = useState({
     status: 'playing',
     cardNames: [],
   })
   const dataGame = useRef({ flips: 0, time: 0 })
 
   const grid = useMemo(() => {
-    if (stateGame.status === 'playing') return generateGame.generateMatrix()
+    if (gameState.status === 'playing') return generateGame.generateMatrix()
 
     return []
-  }, [stateGame.status])
+  }, [gameState.status])
 
   const initGameTime = useCallback(() => {
     if (dataGame.current.time === 0) dataGame.current.time = Date.now()
@@ -52,19 +57,19 @@ function GridGame({ trial }) {
     }, 100)
 
     dataGame.current = { flips: 0, time: 0 }
-    setStateGame({ status: 'playing', cardNames: [] })
+    setGameState({ status: 'playing', cardNames: [] })
   }, [])
 
   useEffect(() => {
     let interval_ruins = null
     let $img = $('#background-image-game')
 
-    if (trial && stateGame.status === 'playing') {
+    if (trial && gameState.status === 'playing') {
       $img.style.filter = 'grayscale(0)'
       interval_ruins = colorToGray('#background-image-game')
     }
 
-    if (stateGame.status !== 'playing') {
+    if (gameState.status !== 'playing') {
       clearInterval(interval_ruins)
     }
 
@@ -73,10 +78,10 @@ function GridGame({ trial }) {
 
       clearInterval(interval_ruins)
     }
-  }, [stateGame.status])
+  }, [gameState.status])
 
   useEffect(() => {
-    const { cardNames } = stateGame
+    const { cardNames } = gameState
     let timeout_game = null
     let timeout_win = null
 
@@ -115,13 +120,13 @@ function GridGame({ trial }) {
         timeout_win = setTimeout(() => {
           dataGame.current.time = Date.now() - dataGame.current.time
 
-          setStateGame((stateGame) => {
-            return { ...stateGame, status: 'victory' }
+          setGameState((gameState) => {
+            return { ...gameState, status: 'victory' }
           })
         }, 200)
       } else {
-        setStateGame((stateGame) => {
-          return { ...stateGame, cardNames: [] }
+        setGameState((gameState) => {
+          return { ...gameState, cardNames: [] }
         })
       }
 
@@ -132,15 +137,15 @@ function GridGame({ trial }) {
       if (timeout_game) clearTimeout(timeout_game)
       if (timeout_win) clearTimeout(timeout_win)
     }
-  }, [stateGame.cardNames])
+  }, [gameState.cardNames])
 
   return (
     <>
-      {trial && stateGame.status === 'playing' ? (
+      {trial && gameState.status === 'playing' ? (
         <ViewTime
           initTime={dataGame.current.time}
-          status={stateGame.status}
-          onFinish={setStateGame}
+          status={gameState.status}
+          onFinish={setGameState}
         />
       ) : null}
       <div
@@ -149,7 +154,7 @@ function GridGame({ trial }) {
         onClick={initGameTime}
       >
         {grid.map((card) => (
-          <Card key={card.id} src={card.url_img} onFlip={setStateGame} />
+          <Card key={card.id} src={card.url_img} onFlip={setGameState} />
         ))}
       </div>
 
@@ -162,11 +167,11 @@ function GridGame({ trial }) {
           </Modal>
         }
       >
-        {stateGame.status !== 'playing' ? (
+        {gameState.status !== 'playing' ? (
           <ModalResult
             dataGame={dataGame.current}
             tryGame={tryGame}
-            status={stateGame.status}
+            status={gameState.status}
           />
         ) : null}
       </Suspense>

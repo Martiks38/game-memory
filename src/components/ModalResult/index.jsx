@@ -9,13 +9,12 @@ import { total_time } from '../../consts/game'
 /**
  * Shows the result of the game.
  *
- * @Component
  * @param {Object} props - Statistics and game function.
- * @param {Object} dataGame - Game statistics.
- * @param {number} dataGame.time - Duration of the game.
- * @param {number} dataGame.flips - Number of flipped cards.
- * @param {string} [status= ("victory" | "defeat")]
- * @callback tryGame - Restart the game.
+ * @property {Object} props.dataGame - Game statistics.
+ * @property {number} props.dataGame.time - Duration of the game.
+ * @property {number} props.dataGame.flips - Number of flipped cards.
+ * @property {"victory" | "defeat"} props.status - Indicates if you won the game.
+ * @property {() => void} props.tryGame - Restart the game.
  */
 
 function ModalResult({ dataGame, tryGame, status }) {
@@ -51,7 +50,6 @@ function ModalResult({ dataGame, tryGame, status }) {
             href="/"
             msg="Inicio"
             styles="flex gap-[0.4em] items-center font-inherit btn-journal btn-journal_home ml-12"
-            setClose="setViewModalWin"
           />
           <Button
             msg="Volver a jugar"

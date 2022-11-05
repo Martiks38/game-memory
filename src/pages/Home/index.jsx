@@ -4,6 +4,7 @@ import ButtonLink from '../../components/ButtonLink'
 
 import Layout from '../Layout'
 
+/** Home page. */
 function Home() {
   useEffect(() => {
     // Prefers reduced motion

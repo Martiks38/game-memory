@@ -1,3 +1,9 @@
+/**
+ * Get the image name from the src attribute from a container of figure.
+ *
+ * @param {JSX.Element} parentCard - Card container.
+ * @returns {string} - Image name.
+ */
 const getNameImg = (parentCard) => {
   let img = parentCard.querySelector('figure img')
 

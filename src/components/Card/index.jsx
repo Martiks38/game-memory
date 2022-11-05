@@ -2,6 +2,21 @@ import { memo } from 'react'
 
 import flipCard from '../../utils/flipCard'
 
+/**
+ * @typedef {Object} GameState
+ * @property {"victory" | "defeat"} status
+ * @property {string[]} cardNames
+ */
+
+/**
+ * @typedef {React.Dispatch<React.SetStateAction<GameState>>} SetGameState
+ */
+
+/**
+ * @param {Object} props
+ * @property {string} props.src - Image path.
+ * @property {SetGameState} props.onFlip - Game manager for when time is up.
+ */
 function Card({ src, onFlip }) {
   return (
     <div

@@ -1,5 +1,12 @@
 import getNameImg from './getNameImg'
 
+/**
+ * Flip over and keep/delete the touched card.
+ *
+ * @param {JSX.Element} target - Element contained within the letter.
+ * @param {Function} onflip - Modify the state of the game.
+ */
+
 const flipCard = (target, onFlip) => {
   let card = target.closest('[data-flip]')
 

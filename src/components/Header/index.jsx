@@ -2,11 +2,7 @@ import { Link } from 'wouter'
 
 import ButtonLink from '../ButtonLink'
 
-/**
- * Page header.
- *
- * @returns {JSX.Element}
- */
+/** Page header. */
 function Header() {
   return (
     <header className="bg-[#1a1a1a]">

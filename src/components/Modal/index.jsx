@@ -4,7 +4,6 @@
  * @param {Object} props - Styles and content of the modal.
  * @property {JSX.Element | JSX.Element[]} props.children - Modal content - child elements.
  * @property {string} props.styles - List of classes in a string.
- * @returns {JSX.Element}
  */
 function Modal({ children, styles }) {
   return (
