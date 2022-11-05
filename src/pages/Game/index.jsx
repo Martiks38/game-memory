@@ -4,7 +4,7 @@ import Layout from '../Layout'
 /**
  * Container component of the game.
  *
- * @param {Object} props -Por defecto, no hay límite de tiempo para encontrar las parejas. trial = false
+ * @param {Object} props - By default, there is no time limit to find the pairs. Default trial = false.
  * @property {boolean} props.trial - Indicates if the game is against the clock.
  */
 function Game({ trial = false }) {
@@ -14,7 +14,7 @@ function Game({ trial = false }) {
         <img
           src="/ruins.webp"
           alt=""
-          className="absolute top-1/2 -translate-y-1/2 w-full object-cover transitionGame -z-10"
+          className="absolute top-1/2 -translate-y-1/2 w-full h-full object-cover transitionGame -z-10"
           id="background-image-game"
         />
         <GridGame trial={trial} />

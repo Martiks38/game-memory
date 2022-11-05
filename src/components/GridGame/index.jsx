@@ -149,7 +149,7 @@ function GridGame({ trial }) {
         />
       ) : null}
       <div
-        className="grid grid-rows-6 grid-cols-6 gap-2 z-10 max-h-[80vmin] max-w-[80vmin] min-h-[70vmin] min-w-[70vmin]"
+        className="grid grid-rows-6 grid-cols-6 gap-2 max-h-[80vmin] max-w-[80vmin] z-10 min-h-[70vmin] min-w-[70vmin]"
         id="gameGrid"
         onClick={initGameTime}
       >

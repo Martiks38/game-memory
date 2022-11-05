@@ -56,9 +56,12 @@ function ViewTime({ initTime, status, onFinish }) {
   let [minutes, seconds] = millisecondsToMinutesSeconds(time)
 
   return (
-    <div className="mb-4 text-4xl text-center text-[#cd0300]">
+    <h1
+      className="mb-4 text-4xl text-center text-[#cd0300]"
+      id="left-time-title"
+    >
       Tiempo restante {minutes}:{seconds}
-    </div>
+    </h1>
   )
 }
 
