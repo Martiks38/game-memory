@@ -1,0 +1,188 @@
+#hamlet,
+.shadowTop::before + #hamlet {
+  transition: transform 300ms ease;
+}
+
+#hamlet:hover {
+  transition-property: none;
+}
+
+.shadowTop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  display: block;
+  height: 30%;
+  width: 100%;
+  background-image: linear-gradient(to bottom, #000, transparent);
+  z-index: 1;
+}
+
+.shadowLoader {
+  background-image: radial-gradient(
+    circle at 50% 100%,
+    transparent,
+    transparent 30%,
+    #000
+  );
+}
+
+.transitionGame {
+  transition: -webkit-filter 300ms ease;
+  transition: filter 300ms ease;
+  transition: filter 300ms ease, -webkit-filter 300ms ease;
+}
+
+.card-container {
+  perspective: 1000px;
+}
+
+.card {
+  transition: transform 300ms linear;
+  transform-style: preserve-3d;
+}
+
+.card.correct {
+  transition-property: none;
+}
+
+.card.flip {
+  transform: rotateY(-180deg);
+}
+
+.front-card {
+  /* Bug fix for backface visibility in Firefox. */
+  transform: rotateY(0deg);
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.back-card {
+  transform: rotateY(-180deg);
+}
+
+.shadowText {
+  text-shadow: -1px 0 #d65900, 0 1px #cf4a00, 1px 0 #b52d00, 0 -1px #d24a00;
+}
+
+.btn-journal::before {
+  --size: 40px;
+  content: '';
+  display: block;
+  height: var(--size);
+  width: var(--size);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transition: transform 300ms ease-in-out;
+}
+
+.btn-journal:hover::before {
+  transform: scale(1.4);
+}
+
+.btn-journal_home::before {
+  background-image: url('/invitation.webp');
+}
+
+.btn-journal_tryGame::before {
+  background-image: url('/try_game.webp');
+}
+
+.result__title {
+  top: 3rem;
+  width: 100%;
+  font-size: 1.4rem;
+}
+
+.result__info {
+  position: absolute;
+  top: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+.result__buttons {
+  bottom: 4rem;
+}
+
+.result__buttons a:first-child {
+  margin-left: 2.5em;
+}
+
+@media (min-height: 551px) and (min-width: 651px) {
+  #modal-img {
+    padding: 0;
+  }
+}
+
+@media (max-width: 651px) {
+  .result__title {
+    top: 3.8rem;
+  }
+}
+
+@media (max-width: 586px) {
+  .result__title {
+    top: 5.35rem;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 541px) {
+  .result__title {
+    top: 4.75rem;
+  }
+
+  .result__buttons {
+    bottom: 5.1rem;
+  }
+}
+
+@media (max-width: 451px) {
+  .result__title {
+    top: 6.2rem;
+  }
+
+  .result__buttons {
+    bottom: 6.5rem;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+
+  .result__buttons a:first-child {
+    margin-left: 1.5em;
+  }
+}
+
+@media (max-height: 551px) {
+  #left-time-title {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    width: 150px;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    word-break: normal;
+  }
+
+  .result__buttons {
+    bottom: 3rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .result__buttons a:first-child {
+    margin-left: 1.5em;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-height: 551px) {
+  .result__title {
+    font-size: 1rem;
+  }
+}
