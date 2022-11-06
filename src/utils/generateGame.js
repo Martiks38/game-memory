@@ -13,78 +13,24 @@ class Game {
   // Image url list.
   /** @private */
   #unique_cards = [
-    {
-      url_img: '/Cards/Bone_Bearer.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Bone_Captain.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Castellan.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Fanatic.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Ghoul.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Grave_Robber.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Hellion.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Jester.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Miller.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Piglet.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Plague_Doctor.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Prophet_Sprite.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Scarecrow.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Shambler.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Squiffy_Ghast.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/The_Collector.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/The_Thing.webp',
-      uses: 2,
-    },
-    {
-      url_img: '/Cards/Vestal.webp',
-      uses: 2,
-    },
+    '/Cards/Bone_Bearer.webp',
+    '/Cards/Bone_Captain.webp',
+    '/Cards/Castellan.webp',
+    '/Cards/Fanatic.webp',
+    '/Cards/Ghoul.webp',
+    '/Cards/Grave_Robber.webp',
+    '/Cards/Hellion.webp',
+    '/Cards/Jester.webp',
+    '/Cards/Miller.webp',
+    '/Cards/Piglet.webp',
+    '/Cards/Plague_Doctor.webp',
+    '/Cards/Prophet_Sprite.webp',
+    '/Cards/Scarecrow.webp',
+    '/Cards/Shambler.webp',
+    '/Cards/Squiffy_Ghast.webp',
+    '/Cards/The_Collector.webp',
+    '/Cards/The_Thing.webp',
+    '/Cards/Vestal.webp',
   ]
 
   // List of ids for key.
@@ -140,38 +86,24 @@ class Game {
   /**
    * Generates an unordered array of cards.
    *
-   * @returns {Array<Card>}
+   * @returns {Card[]}
    */
   generateMatrix() {
-    let ids_clone = this.#ids.slice()
+    let length = 0
 
-    let cards_clone = this.#unique_cards
-      .map((card) => structuredClone(card))
-      .splice(0, n ** 2 / 2)
+    let cards_clone = this.#unique_cards.concat(this.#unique_cards)
 
-    const gameMatrix = this.#matrix.map(() => {
-      let remain_cards = 0
-      let ind = 0
+    for (let i = 0; i < length; i++) {
+      let rand_index = Math.floor(Math.random() * (length - 1))
 
-      /**
-       * Filter pairs of cards already used
-       * Modify the order so that the last two elements are not always the same.
-       */
-      cards_clone = cards_clone
-        .sort(() => Math.random() - 0.5)
-        .filter((card) => card.uses !== 0)
+      let temp = cards_clone[i]
+      cards_clone[i] = cards_clone[rand_index]
+      cards_clone[rand_index] = temp
+    }
 
-      remain_cards = cards_clone.length - 1
-
-      ind = Math.floor(remain_cards * Math.random())
-
-      let card = cards_clone[ind]
-      let url_img = card.url_img
-
-      // The id in the variable is the id removed from ids_clone.
-      let id = ids_clone.pop()
-
-      card.uses = card.uses - 1
+    const gameMatrix = this.#matrix.map((_, index) => {
+      let id = this.#ids[index]
+      let url_img = cards_clone[index]
 
       return { url_img, id }
     })
