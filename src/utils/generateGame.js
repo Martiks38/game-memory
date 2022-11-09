@@ -103,13 +103,12 @@ class Game {
    * @returns {Card[]}
    */
   generateMatrix() {
-    let length = 0
-
     let cards_clone = this.#unique_cards.concat(this.#unique_cards)
+    let length = cards_clone.length
 
     for (let i = 0; i < length; i++) {
       let rand_index = Math.floor(Math.random() * (length - 1))
-
+      console.log(rand_index, i)
       let temp = cards_clone[i]
       cards_clone[i] = cards_clone[rand_index]
       cards_clone[rand_index] = temp
