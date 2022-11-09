@@ -1,17 +1,15 @@
-/**
- * Order of the game matrix.
- * @constant
- * @type {number}
- */
-const n = 6
-
-/**
- * Represents a game.
- *
- */
+/** Represents a game. */
 class Game {
-  // Image url list.
-  /** @private */
+  /**
+   * Order of the game matrix.
+   * @type {number}
+   */
+  #order
+
+  /**
+   * Image url list.
+   * @type {string[]}
+   * */
   #unique_cards = [
     '/Cards/Bone_Bearer.webp',
     '/Cards/Bone_Captain.webp',
@@ -33,8 +31,10 @@ class Game {
     '/Cards/Vestal.webp',
   ]
 
-  // List of ids for key.
-  /** @private */
+  /**
+   * List of ids for key.
+   * @type {string[]}
+   */
   #ids = [
     '0782bf46-9af3-40e6-a957-494ce7579bae',
     '7541012d-175a-4a13-96d6-39bd46209867',
@@ -74,8 +74,22 @@ class Game {
     '0ef55ec0-666a-43d4-9799-eaed57275404',
   ]
 
-  /** @private */
-  #matrix = new Array(n ** 2).fill(null)
+  #matrix = []
+
+  /**
+   * The value must be even, otherwise the value 6 will be assigned.
+   * @param {number} order
+   */
+  constructor(order) {
+    order % 2 === 0 ? (this.#order = order) : (this.#order = 6)
+
+    this.#matrix = Array.from({ length: order ** 2 }).fill(null)
+  }
+
+  /** Returns the order of the array. */
+  get getOrder() {
+    return this.#order
+  }
 
   /**
    * @typedef {Object} Card
@@ -112,6 +126,9 @@ class Game {
   }
 }
 
-const newGame = new Game()
+const initGame = (order) => new Game(order)
+
+const order = 6
+const newGame = initGame(order)
 
 export default newGame

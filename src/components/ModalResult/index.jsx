@@ -34,7 +34,7 @@ function ModalResult({ dataGame, tryGame, status }) {
         className="relative top-0 left-0 mx-auto p-4 w-fit h-full -z-10"
         id="modal-img"
       >
-        <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full">
           <h1 className="absolute result__title shadowText leading-[normal]">
             {title}
           </h1>
@@ -52,7 +52,7 @@ function ModalResult({ dataGame, tryGame, status }) {
               </li>
             </ul>
           </div>
-          <div className="absolute flex justify-center items-center gap-4 w-full md:gap-16 result__buttons">
+          <div className="absolute flex justify-center items-center w-full result__buttons">
             <ButtonLink
               href="/"
               msg="Inicio"
