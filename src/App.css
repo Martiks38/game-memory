@@ -51,7 +51,7 @@
 }
 
 .front-card {
-  /* Bug fix for backface visibility in Firefox. */
+  /* Bug fix for backface visibility in Firefox and Safari. */
   transform: rotateY(0deg);
 
   -webkit-backface-visibility: hidden;
@@ -97,16 +97,14 @@
 }
 
 .result__info {
-  position: absolute;
-  top: 50%;
   margin-right: auto;
   margin-left: auto;
   width: 100%;
-  transform: translateY(-50%);
 }
 
 .result__buttons {
   bottom: 4rem;
+  gap: 4em;
 }
 
 .result__buttons a:first-child {
@@ -125,36 +123,31 @@
   }
 }
 
-@media (max-width: 586px) {
-  .result__title {
-    top: 5.35rem;
+@media (max-width: 590px) and (orientation: portrait) {
+  #modal {
     font-size: 16px;
   }
-}
 
-@media (max-width: 541px) {
+  #modal-img {
+    width: 360px;
+  }
+
   .result__title {
-    top: 4.75rem;
+    top: 7.65rem;
+    font-size: 13px;
   }
 
   .result__buttons {
-    bottom: 5.1rem;
-  }
-}
-
-@media (max-width: 451px) {
-  .result__title {
-    top: 6.2rem;
-  }
-
-  .result__buttons {
-    bottom: 6.5rem;
-    font-size: 1.2rem;
-    line-height: 1.5rem;
+    bottom: 7.5rem;
+    gap: 1em;
   }
 
   .result__buttons a:first-child {
-    margin-left: 1.5em;
+    margin-left: 2.5em;
+  }
+
+  .btn-journal:hover::before {
+    transform: scale(1.25);
   }
 }
 
