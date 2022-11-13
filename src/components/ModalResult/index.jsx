@@ -24,9 +24,10 @@ function ModalResult({ dataGame, tryGame, status }) {
   let time = won ? dataGame.time : total_time
 
   let [minutes, seconds] = millisecondsToMinutesSeconds(time)
+
   let title = won
     ? 'Una victoria mínima, pero victoria al fin y al cabo.'
-    : 'Oídos que resuenan,visión borrosa... el fin está cerca.'
+    : 'Oídos que resuenan, visión borrosa... el fin está cerca.'
 
   return (
     <Modal styles="text-2xl text-center text-black w-full h-full rounded-lg max-w-[620px] max-h-[425px]">

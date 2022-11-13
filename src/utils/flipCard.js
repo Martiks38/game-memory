@@ -16,23 +16,16 @@ const flipCard = (target, onFlip) => {
 
   card.classList.toggle('flip')
 
-  let isFlip = card.classList.contains('flip')
-
-  if (isFlip) {
+  onFlip((stateGame) => {
     let name = getNameImg(card)
+    let isFlip = card.classList.contains('flip')
 
-    onFlip((stateGame) => {
-      let cardNames = stateGame.cardNames.concat(name)
+    let cardNames = isFlip
+      ? stateGame.cardNames.concat(name)
+      : stateGame.cardNames.slice(0, 0)
 
-      return { ...stateGame, cardNames }
-    })
-  } else {
-    onFlip((stateGame) => {
-      let cardNames = stateGame.cardNames.slice(0, 0)
-
-      return { ...stateGame, cardNames }
-    })
-  }
+    return { ...stateGame, cardNames }
+  })
 }
 
 export default flipCard

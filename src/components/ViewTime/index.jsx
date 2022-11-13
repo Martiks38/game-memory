@@ -24,7 +24,7 @@ import { total_time } from '../../consts/game'
  * @param {SetGameState} props.onFinish - Game manager for when time is up.
  */
 
-function ViewTime({ initTime, status, onFinish }) {
+function ViewTime({ initTime, onFinish }) {
   const [time, setTime] = useState(total_time)
 
   useEffect(() => {
@@ -39,11 +39,7 @@ function ViewTime({ initTime, status, onFinish }) {
       })
     }
 
-    if (status !== 'playing') {
-      clearInterval(left_time)
-    }
-
-    if (status === 'playing' && initTime !== 0) {
+    if (initTime !== 0) {
       left_time = setInterval(() => {
         setTime((time) => time - 1000)
       }, 1000)
@@ -52,7 +48,7 @@ function ViewTime({ initTime, status, onFinish }) {
     return () => {
       if (left_time) clearInterval(left_time)
     }
-  }, [initTime, status, time])
+  }, [initTime, time])
 
   let [minutes, seconds] = millisecondsToMinutesSeconds(time)
 

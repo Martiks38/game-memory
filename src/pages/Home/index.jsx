@@ -24,8 +24,8 @@ function Home() {
     const { height } = hamlet.getBoundingClientRect()
     const halfHeight = height / 2
 
-    const parallaxY = (element) => {
-      const { offsetY } = element
+    const parallaxY = (event) => {
+      const { offsetY } = event
       const translateY = ((offsetY - halfHeight) / halfHeight) * 5
 
       hamlet.style.transform = `translateY(${translateY}px)`
