@@ -16,7 +16,7 @@ function Game({ trial = false }) {
           src="/ruins.webp"
           alt=""
           className="absolute top-1/2 -translate-y-1/2 w-full h-full object-cover transitionGame -z-10"
-          id="background-image-game"
+          id="bgImageGame"
         />
         <GridGame trial={trial} />
       </div>
