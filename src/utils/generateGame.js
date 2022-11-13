@@ -81,7 +81,7 @@ class Game {
    * @param {number} order
    */
   constructor(order) {
-    order % 2 === 0 ? (this.#order = order) : (this.#order = 6)
+    this.#order = order % 2 === 0 ? order : 6
 
     this.#matrix = Array.from({ length: order ** 2 }).fill(null)
   }
@@ -89,6 +89,19 @@ class Game {
   /** Returns the order of the array. */
   get getOrder() {
     return this.#order
+  }
+
+  /** Returns the name of the cards.  */
+  getNameCards() {
+    let names = []
+
+    this.#unique_cards.forEach((card) => {
+      let name = card.split('/').at(-1).split('.').at(0)
+
+      names.push(name)
+    })
+
+    return names
   }
 
   /**
@@ -99,6 +112,7 @@ class Game {
 
   /**
    * Generates an unordered array of cards.
+   *
    * @returns {Card[]}
    */
   generateMatrix() {
@@ -107,7 +121,7 @@ class Game {
 
     for (let i = 0; i < length; i++) {
       let rand_index = Math.floor(Math.random() * (length - 1))
-      console.log(rand_index, i)
+
       let temp = cards_clone[i]
       cards_clone[i] = cards_clone[rand_index]
       cards_clone[rand_index] = temp

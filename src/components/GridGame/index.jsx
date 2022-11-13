@@ -42,44 +42,28 @@ function GridGame({ trial }) {
   }, [])
 
   const tryGame = useCallback(() => {
-    let $flips = $$('.flip')
-
-    $flips.forEach((card) => {
-      card.classList.toggle('flip')
-      card.dataset.flip = 'true'
-    })
-
-    setTimeout(() => {
-      let $correct = $$('.correct')
-
-      $correct.forEach((card) => {
-        card.classList.toggle('correct')
-      })
-    }, 100)
-
     dataGame.current = { flips: 0, time: 0 }
     setGameState({ status: 'playing', cardNames: [] })
   }, [])
 
   useEffect(() => {
-    let interval_ruins = null
-    let $img = $('#background-image-game')
+    if (!trial) return
 
-    if (trial && gameState.status === 'playing') {
-      $img.style.filter = 'grayscale(0)'
-      interval_ruins = colorToGray('#background-image-game')
+    let interval_ruins = null
+    let $img = $('#bgImageGame')
+
+    if ($img && dataGame.current.time === 0) $img.style.filter = 'grayscale(0)'
+
+    if ($img && gameState.status === 'playing' && dataGame.current.time !== 0) {
+      interval_ruins = colorToGray('#bgImageGame')
     }
 
     if (gameState.status !== 'playing') {
       clearInterval(interval_ruins)
     }
 
-    return () => {
-      if ($img) $img.style.filter = 'grayscale(0)'
-
-      clearInterval(interval_ruins)
-    }
-  }, [gameState.status])
+    return () => clearInterval(interval_ruins)
+  }, [dataGame.current.time, gameState.status])
 
   useEffect(() => {
     const { cardNames } = gameState
@@ -153,6 +137,7 @@ function GridGame({ trial }) {
         className="grid grid-rows-6 grid-cols-6 gap-2 max-h-[80vmin] max-w-[80vmin] z-10 min-h-[70vmin] min-w-[70vmin]"
         id="gameGrid"
         onClick={initGameTime}
+        data-testid="container-gameGrid"
       >
         {grid.map((card) => (
           <Card key={card.id} src={card.url_img} onFlip={setGameState} />
@@ -168,7 +153,7 @@ function GridGame({ trial }) {
           </Modal>
         }
       >
-        {gameState.status !== 'playing' ? (
+        {gameState.status === 'victory' || gameState.status === 'defeat' ? (
           <ModalResult
             dataGame={dataGame.current}
             tryGame={tryGame}
