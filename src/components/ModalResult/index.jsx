@@ -67,7 +67,7 @@ function ModalResult({ dataGame, tryGame, status }) {
           </div>
         </div>
         <img
-          src="/journal_popup.background.webp"
+          src="/journal_popup.webp"
           alt=""
           className="w-auto h-full object-contain"
         />
